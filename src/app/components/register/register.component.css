@@ -1,0 +1,34 @@
+.body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+.login {
+    width: 100%;
+    max-width: 330px;
+    text-align: center;
+}
+img {
+    width: 50%;
+}
+.ancho {
+    width: 80%;
+}
+.boton {
+    height: 50px;
+}
+p {
+    margin-top: 10px;
+}
+a {
+    text-decoration: none;
+    color:aquamarine
+}
+
+.mensajeError {
+    margin-top: -15px;
+    margin-bottom: 15px;
+}
