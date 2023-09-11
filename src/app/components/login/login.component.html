@@ -3,17 +3,36 @@
         <img src="../../../assets/alien.svg" alt="alien">
         <h1>Login</h1>
 
-        <mat-form-field class="ancho">
-            <mat-label>Nombre</mat-label>
-            <input matInput autocomplete="off">
-        </mat-form-field>
-        <mat-form-field class="ancho">
-            <mat-label>Contraseña</mat-label>
-            <input matInput autocomplete="off">
-        </mat-form-field>
+        <form [formGroup]="usuarioLog">
+            <mat-form-field class="ancho">
+                <mat-label>Nombre</mat-label>
+                <input matInput autocomplete="off" formControlName="name">
+            </mat-form-field>
 
-        <button mat-raised-button color="primary" class="ancho boton">Ingresar</button>
+            <mat-error *ngIf="this.usuarioLog.get('name')?.errors?.['required'] && (this.usuarioLog.get('name')?.touched || this.usuarioLog.get('name')?.dirty)" class="mensajeError">
+                {{validation_messages.name.required}}
+            </mat-error>
+            <mat-error *ngIf="this.usuarioLog.get('name')?.errors?.['minlength'] && (this.usuarioLog.get('name')?.dirty || this.usuarioLog.get('name')?.touched)" class="mensajeError">
+                {{validation_messages.name.minLength}}
+            </mat-error>
 
+            <mat-form-field class="ancho">
+                <mat-label>Contraseña</mat-label>
+                <input matInput autocomplete="off" [type]="hide? 'password' : 'text'" formControlName="password">
+                <button mat-icon-button matSuffix (click)="hide = !hide" >
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+            </mat-form-field>
+
+            <mat-error *ngIf="this.usuarioLog.get('password')?.errors?.['required'] && (this.usuarioLog.get('password')?.touched || this.usuarioLog.get('password')?.dirty)" class="mensajeError">
+                {{validation_messages.password.required}}
+            </mat-error>
+            <mat-error *ngIf="this.usuarioLog.get('password')?.errors?.['minlength'] && (this.usuarioLog.get('password')?.touched || this.usuarioLog.get('password')?.dirty)" class="mensajeError">
+                {{validation_messages.password.minLength}}
+            </mat-error>
+    
+            <button mat-raised-button color="primary" class="ancho boton"[disabled]="usuarioLog.invalid" (click)="login(usuarioLog)">Ingresar</button>
+        </form>
 
     </div>
 </div>

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormGroup, Validators, FormBuilder, ValidatorFn, AbstractControl } from '@angular/forms';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-register',
@@ -8,15 +8,11 @@ import { FormGroup, Validators, FormBuilder, ValidatorFn, AbstractControl } from
 })
 export class RegisterComponent {
   constructor(private theUser: FormBuilder){
-    this.usuarioReg.get('repPassword')?.setValidators(
-      this.equals(this.usuarioReg.get('password'), this.usuarioReg.get('repPassword') )
-    )
+    
   }
-
-  equals(pass: any, repPass: any): any {
-    if(pass === repPass) return null
-    else return false;
-  }
+  
+  hide:boolean =true;
+  hideRepeat: boolean = true;
 
   usuarioReg = this.theUser.group({
     'name': ['', [Validators.required, Validators.minLength(2)]],
