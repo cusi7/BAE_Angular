@@ -5,6 +5,7 @@
 }
 .fixed {
     position: fixed;
+    z-index: 500;
 }
 button {
     margin: 0 5px 0 5px;
