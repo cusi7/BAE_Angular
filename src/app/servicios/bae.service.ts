@@ -3,7 +3,7 @@ import { LoginI } from '../models/login.interface';
 import { registerI } from '../models/register.interface';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { resposeRegisterI } from '../models/responceRegister.interface';
-import {Observable} from 'rxjs';
+import {Observable, catchError, throwError} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -14,13 +14,41 @@ export class BaeService {
 
   url:string = 'http://localhost:3001/';
 
-  loginApi( form: LoginI ){
-    let direction = this.url + '';
+  private handleError(error: any) {
+    if (error.status === 0) {
+      // A client-side or network error occurred. Handle it accordingly.
+      console.error('An error occurred:', error.error);
+    } else {
+      // The backend returned an unsuccessful response code.
+      // The response body may contain clues as to what went wrong.
+      console.error(
+        `Backend returned code ${error.status}, body was: `, error.error);
+    }
+    // Return an observable with a user-facing error message.
+    return throwError(() => new Error('Something bad happened; please try again later.'));
   }
 
-  registerApi( form: registerI ): Observable<resposeRegisterI> {
+  loginApi( form: LoginI ): any{
+    let direction = this.url + 'usuario/login';
+    try {
+      let response = this.http.post(direction, form).pipe(catchError(this.handleError));
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  registerApi( form: registerI ): any {
     let direction = this.url + 'usuario/registro';
-    
-    return this.http.post<resposeRegisterI>(direction, form);
+    try {
+      let response = this.http.post(direction, form).pipe(catchError(this.handleError));
+      return response
+    } catch (error) {
+      // -->!!!!!<--
+      //NO ENTRA EN CASO DE ERROR
+      console.log('HUBO UN ERROR')
+      return error
+    }
+ 
   }
 }

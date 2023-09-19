@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 //angular
 import { FormGroup, Validators, FormBuilder } from '@angular/forms'; 
 import { Router } from '@angular/router';
+
 import { MatDialog } from '@angular/material/dialog';
 import { MessageComponent } from '../message/message.component';
 //servicios
@@ -18,7 +19,9 @@ import { resposeRegisterI } from 'src/app/models/responceRegister.interface';
 export class RegisterComponent implements OnInit {
 
   constructor( //public dialog:MatDialog,
-     private theUser: FormBuilder, private api:BaeService, private router: Router){
+     private theUser: FormBuilder, private api:BaeService, private router: Router 
+    //  , public dialog: MatDialog
+     ){
     
   }
 
@@ -65,11 +68,11 @@ export class RegisterComponent implements OnInit {
       }
   }
 
-  // openDialog(){
-  //   this.dialog.open(MessageComponent,{
-  //     width:'250px'
+  //  openDialog(){
+  //    this.dialog.open(MessageComponent,{
+  //      width:'250px'
   //   })
-  // }
+  //  }
 
   register(user: FormGroup): void{
      let userRegister: registerI = {
@@ -78,13 +81,16 @@ export class RegisterComponent implements OnInit {
       password: user.value.password
      };
      try {
-        this.api.registerApi(userRegister).subscribe(data=> {
-          let response:resposeRegisterI = data;
+        this.api.registerApi(userRegister).subscribe((data: any)=> {
+          let response = data;
           localStorage.setItem('token', response.token);
           this.router.navigate(['/user']);
+          console.log(response);
         });
      } catch (error) {
-        console.log(error)
+        //-->!!!!!<--
+        //NO ENTRA EN CASO DE ERROR
+        console.log('ENTRO AL CATCH');
      }
   }
 }

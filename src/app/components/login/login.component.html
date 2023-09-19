@@ -9,16 +9,14 @@
 
             <form [formGroup]="usuarioLog">
                 <mat-form-field class="ancho">
-                    <mat-label>Nombre</mat-label>
-                    <input matInput autocomplete="off" formControlName="name">
+                    <mat-label>Email</mat-label>
+                    <input matInput autocomplete="off" formControlName="email">
                 </mat-form-field>
 
-                <mat-error *ngIf="this.usuarioLog.get('name')?.errors?.['required'] && (this.usuarioLog.get('name')?.touched || this.usuarioLog.get('name')?.dirty)" class="mensajeError">
-                    {{validation_messages.name.required}}
+                <mat-error *ngIf="(this.usuarioLog.get('email')?.errors?.['required'] || this.usuarioLog.get('email')?.errors?.['email'] || this.usuarioLog.get('email')?.errors?.['pattern']) && (this.usuarioLog.get('email')?.touched || this.usuarioLog.get('email')?.dirty)" class="mensajeError">
+                    {{validation_messages.email.error}}
                 </mat-error>
-                <mat-error *ngIf="this.usuarioLog.get('name')?.errors?.['minlength'] && (this.usuarioLog.get('name')?.dirty || this.usuarioLog.get('name')?.touched)" class="mensajeError">
-                    {{validation_messages.name.minLength}}
-                </mat-error>
+                   
 
                 <mat-form-field class="ancho">
                     <mat-label>Contraseña</mat-label>

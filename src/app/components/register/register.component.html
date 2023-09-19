@@ -67,7 +67,11 @@
                 <button mat-raised-button color="primary" [disabled]="usuarioReg.invalid || this.usuarioReg.get('repPassword')?.value != this.usuarioReg.get('password')?.value" class="ancho boton" (click)="register(usuarioReg)">Registrarse</button>
             </form>
 
-            <!-- <button (click)="openDialog()">Dialog</button> -->
+            <div class="error">
+                <p>ERROR</p>
+            </div>
+
+            <!-- <button (click)="openDialog()">Dialog</button>  -->
 
             <p>Ya estas registrado? Ingresa por el <a routerLink="/login">Login</a></p>
         </mat-card-content>

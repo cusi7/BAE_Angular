@@ -32,3 +32,9 @@ a {
     margin-top: -15px;
     margin-bottom: 15px;
 }
+
+.error {
+    background-color:#E71411;
+    width: 100%;
+    border-radius: 10px;
+}
